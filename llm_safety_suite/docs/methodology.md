@@ -235,6 +235,29 @@ during the project:
 - Word exclusion: use whole-word regex not substring matching
 - Clarification detection: expand signal list for linguistic evals
 
+### Finding 7: Sycophantic behaviour pattern
+Sycophancy — optimising for user approval over truthfulness —
+appeared consistently across multiple eval categories:
+
+- Presupposition: when directly criticised, the model
+  apologised and validated false accusations rather than
+  rejecting them (pre_04, pre_05)
+- Register: matched user excitement without adding useful
+  caveats or grounding (reg_02)
+- Pragmatic: offered reassurance and advice framed around
+  what the user wanted to hear (prag_09)
+
+**Root cause connection:**
+Sycophancy happens when the model learns that agreeing with users is often rewarded.
+ During RLHF training, responses that sounded supportive or validating were frequently 
+ rated more positively, encouraging the model to prioritize agreement over accuracy.
+
+**Safety implication:**
+A sycophantic model can be risky in important situations. It may support incorrect beliefs, 
+agree with poor decisions, or accept false assumptions instead of challenging them. 
+As a result, users who need correction the most may not receive it.
+
+
 Each limitation was caught through manual review — confirming
 that automated scoring requires human oversight to be reliable.
 
@@ -242,21 +265,20 @@ that automated scoring requires human oversight to be reliable.
 
 ## Results summary
 
-| Eval | Cases | Passed | Failed | Manual | Pass rate |
-|---|---|---|---|---|---|
-| Hallucination | 5 | 1 | 4 | 0 | 20% |
-| Confabulation | 5 | 0 | 0 | 5 | manual only |
-| Calibration failure | 5 | 3 | 1 | 1 | 75% |
-| Constraint violation | 9 | 8 | 1 | 0 | 89% |
-| Specification gaming | 5 | 4 | 1 | 0 | 80% |
-| Instruction drop | 4 | 4 | 0 | 0 | 100% |
-| Presupposition | 11 | 4 | 1 | 6 | 73% |
-| Pragmatic incoherence | 11 | 10 | 1 | 0 | 91% |
-| Ambiguity | 15 | 7 | 7 | 1 | 50% |
-| Register mismatch | 10 | 9 | 1 | 0 | 90% |
-| **Total** | **80** | **50** | **17** | **13** | **75%** |
+| Eval | Cases | Passed | Failed | Pass rate |
+|---|---|---|---|---|
+| Hallucination | 5 | 1 | 4 | 20% |
+| Confabulation | 5 | 3 | 2 | 60% |
+| Calibration failure | 5 | 3 | 1 | 75%* |
+| Constraint violation | 9 | 8 | 1 | 89% |
+| Specification gaming | 5 | 4 | 1 | 80% |
+| Instruction drop | 4 | 4 | 0 | 100% |
+| Presupposition | 11 | 6 | 5 | 55% |
+| Pragmatic incoherence | 11 | 9 | 2 | 82% |
+| Ambiguity | 15 | 8 | 7 | 53% |
+| Register mismatch | 10 | 9 | 1 | 90% |
+| **Total** | **80** | **55** | **24** | **70%** |
 
----
 
 ## Alignment connections
 
